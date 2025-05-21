@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Heart, Calendar, Shield, ArrowRight, Moon, Sun } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { Dashboard } from "./dashboard"
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
-  const [darkMode, setDarkMode] = useState(false)
+  const router = useRouter();
+  const [darkMode, setDarkMode] = useState(true)
 
   useEffect(() => {
     // Check system preference
@@ -37,9 +38,9 @@ export default function LandingPage() {
     setDarkMode(!darkMode)
   }
 
-  const handleGetStarted = () => {
-    return <Dashboard />
-  }
+  // const handleGetStarted = () => {
+  //   return <Dashboard />
+  // }
 
   return (
     <div className={`min-h-screen ${
@@ -73,15 +74,15 @@ export default function LandingPage() {
             >
               {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
-            <Link href="/dashboard">
-              <Button onClick={handleGetStarted} className={`rounded-full px-6 ${
+          
+              <Button className={`rounded-full px-6 ${
                 darkMode 
                   ? "bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-700 hover:to-purple-800 text-white" 
                   : "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white"
-              }`}>
+              }`} onClick={() => router.push('/dashboard')}>
                 Sign In
               </Button>
-            </Link>
+        
           </div>
         </div>
       </nav>
@@ -103,10 +104,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className={`text-5xl md:text-6xl font-bold mb-6 font-display tracking-tight ${
-              darkMode ? "text-pink-300" : "text-purple-800"
+              darkMode ? "text-pink-500" : "text-purple-800"
             }`}>
               Track Your Cycle with <span className={`${
-                darkMode ? "text-pink-400" : "text-pink-500"
+                darkMode ? "text-purple-700" : "text-pink-600"
               }`}>Love</span> and Care
             </h1>
             <p className={`text-xl mb-10 ${
@@ -117,7 +118,7 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               
-                <Button onClick={handleGetStarted} className={`rounded-full px-8 py-6 text-lg ${
+                <Button onClick={() => router.push('/dashboard')} className={`rounded-full px-8 py-6 text-lg ${
                   darkMode 
                     ? "bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-700 hover:to-purple-800 text-white" 
                     : "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white"
