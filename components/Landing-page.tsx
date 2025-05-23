@@ -1,15 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { format, subDays, addDays, startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval } from "date-fns"
 import { Button } from "@/components/ui/button"
-import { Heart, Calendar, Shield, ArrowRight, Moon, Sun } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
+import { Heart, Calendar, Shield, ArrowRight, Moon, Sun, Star, Users, CheckCircle, ChevronDown } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation";
+
 
 export default function LandingPage() {
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(true)
+    const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     // Check system preference
@@ -22,6 +24,12 @@ export default function LandingPage() {
     }
   }, [])
 
+  useEffect(() => {
+    setIsVisible(true)
+    // Check system preference
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+    setDarkMode(prefersDark)
+  }, [])
   useEffect(() => {
     // Save theme preference to localStorage
     localStorage.setItem("theme", darkMode ? "dark" : "light")
@@ -38,29 +46,39 @@ export default function LandingPage() {
     setDarkMode(!darkMode)
   }
 
-  // const handleGetStarted = () => {
-  //   return <Dashboard />
-  // }
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    element?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <div className={`min-h-screen ${
       darkMode 
-        ? "bg-black text-pink-300" 
-        : "bg-white text-purple-800"
-    } transition-colors duration-300`}>
+         ? "bg-slate-900 text-pink-100" 
+        : "bg-pink-50 text-purple-900"
+    } transition-all duration-500`}>
+
       {/* Navbar */}
       <nav className={`fixed w-full z-50 ${
         darkMode 
-          ? "bg-black/80 backdrop-blur-md border-b border-pink-900/30" 
-          : "bg-white/80 backdrop-blur-md border-b border-purple-100"
-      }`}>
+          ? "bg-slate-900/80 backdrop-blur-md border-b border-pink-500/20" 
+             : "bg-pink-50/80 backdrop-blur-md border-b border-purple-200/30"
+      } transition-all duration-300`}>
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <Heart className={`h-8 w-8 ${darkMode ? "text-pink-500" : "text-pink-500"} mr-2`} />
-            <span className={`text-2xl font-bold font-display ${
-              darkMode ? "text-pink-300" : "text-purple-800"
-            }`}>Periody</span>
+          <div className="flex items-center animate-fade-in">
+            <div className="relative">
+              <Heart className={`h-8 w-8 ${darkMode ? "text-pink-400" : "text-pink-500"} mr-3 animate-pulse`} />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
+            </div>
+            <span className={`text-2xl font-bold bg-gradient-to-r ${
+              darkMode 
+                ? "from-pink-400 to-purple-400" 
+                : "from-pink-600 to-purple-600"
+            } bg-clip-text text-transparent`}>
+              FlowCare
+            </span>
           </div>
+          
           <div className="flex items-center space-x-6">
             <Button
               variant="ghost"
@@ -68,183 +86,121 @@ export default function LandingPage() {
               onClick={toggleTheme}
               className={`${
                 darkMode 
-                  ? "text-pink-300 hover:text-pink-800 hover:bg-pink-500/50" 
-                  : "text-purple-600 hover:text-purple-800 hover:bg-purple-800/50"
-              } rounded-full`}
+                  ? "text-pink-300 hover:text-pink-200 hover:bg-pink-500/20" 
+                  : "text-purple-600 hover:text-purple-800 hover:bg-purple-100"
+              } rounded-full transition-all duration-300 hover:scale-110`}
             >
               {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
-          
-              <Button className={`rounded-full px-6 ${
-                darkMode 
-                  ? "bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-700 hover:to-purple-800 text-white" 
-                  : "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white"
-              }`} onClick={() => router.push('/dashboard')}>
-                Sign In
-              </Button>
-        
+            
+            <Button 
+              onClick={() => scrollToSection('features')}
+              variant="ghost" 
+              className={`${
+                darkMode ? "text-pink-300 hover:text-pink-200" : "text-purple-700 hover:text-purple-900"
+              } hidden md:block`}
+            >
+              Features
+            </Button>
+            
+            <Button className={`rounded-full px-6 py-2 ${
+              darkMode 
+                ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25" 
+                : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-purple-500/25"
+            } transition-all duration-300 hover:scale-105 hover:shadow-xl`} onClick={() => router.push('/dashboard')}>
+              Get Started
+            </Button>
           </div>
         </div>
       </nav>
-
       {/* Hero Section */}
-      <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-20 left-10 opacity-10">
-          <div className={`w-64 h-64 rounded-full ${
-            darkMode ? "bg-pink-800" : "bg-pink-200"
-          } blur-3xl`}></div>
-        </div>
-        <div className="absolute bottom-0 right-0 opacity-10">
-          <div className={`w-96 h-96 rounded-full ${
-            darkMode ? "bg-purple-800" : "bg-purple-200"
-          } blur-3xl`}></div>
+      <section className="pt-32 pb-10 relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className={`absolute top-20 left-10 w-64 h-64 rounded-full ${
+            darkMode ? "bg-pink-500/10" : "bg-pink-300/20"
+          } blur-3xl animate-pulse`}></div>
+          <div className={`absolute bottom-20 right-10 w-96 h-96 rounded-full ${
+            darkMode ? "bg-purple-500/10" : "bg-purple-300/20"
+          } blur-3xl animate-pulse`} style={{ animationDelay: "1s" }}></div>
+          <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full ${
+            darkMode ? "bg-pink-400/5" : "bg-pink-200/30"
+          } blur-3xl animate-pulse`} style={{ animationDelay: "2s" }}></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h1 className={`text-5xl md:text-6xl font-bold mb-6 font-display tracking-tight ${
-              darkMode ? "text-pink-500" : "text-purple-800"
-            }`}>
-              Track Your Cycle with <span className={`${
-                darkMode ? "text-purple-700" : "text-pink-600"
-              }`}>Love</span> and Care
-            </h1>
-            <p className={`text-xl mb-10 ${
-              darkMode ? "text-pink-200/80" : "text-purple-600"
-            }`}>
-              Periody helps you understand your body better with a personalized period tracking experience. 
-              Monitor your cycle, predict your fertile window, and take control of your reproductive health.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              
-                <Button onClick={() => router.push('/dashboard')} className={`rounded-full px-8 py-6 text-lg ${
-                  darkMode 
-                    ? "bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-700 hover:to-purple-800 text-white" 
-                    : "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white"
-                }`}>
-                  Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-             
-              <Button variant="outline" className={`rounded-full px-8 py-6 text-lg ${
+        <div className="container mx-auto px-6 relative z-10 ">
+          <div className={`max-w-full mx-auto text-center transition-all duration-1000 ${
+            isVisible ? "opacity-100 transform translate-y-0" : "opacity-0 transform translate-y-10"
+          }`}>
+            <div className="mb-6">
+              <span className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
                 darkMode 
-                  ? "border-pink-700 text-pink-300 hover:bg-pink-900/30" 
-                  : "border-purple-300 text-purple-700 hover:bg-purple-100/50"
-              }`}>
+                  ? "bg-pink-500/20 text-pink-300 border border-pink-500/30" 
+                  : "bg-pink-100 text-pink-700 border border-pink-200"
+              } animate-fade-in`}>
+                ✨ Your Personal Health Companion
+              </span>
+            </div>
+            
+            <h1 className={`text-5xl md:text-7xl font-bold mb-6 leading-tight ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}>
+              Never Miss Your{" "}
+              <span className={`bg-gradient-to-r ${
+                darkMode 
+                ? "from-pink-400 via-purple-400 to-pink-400" 
+                  : "from-pink-600 via-purple-600 to-pink-600"
+              } bg-clip-text text-transparent animate-pulse`}>
+                Period
+              </span>{" "}
+              Again
+            </h1>
+            
+            <p className={`text-xl md:text-2xl mb-10 leading-relaxed ${
+              darkMode ? "text-pink-100/80" : "text-purple-700"
+            }`}>
+              Empowering women with intelligent cycle tracking, personalized insights, 
+              and caring reminders for a healthier, more confident you.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+              <Button className={`group rounded-full px-8 py-6 text-lg font-semibold ${
+                darkMode 
+                  ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25" 
+                  : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-purple-500/25"
+              } transition-all duration-300 hover:scale-105 hover:shadow-2xl`} onClick={() => router.push('/dashboard')}>
+                Start Tracking Free
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:transform group-hover:translate-x-1 transition-transform" />
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                onClick={() => scrollToSection('features')}
+                className={`rounded-full px-8 py-6 text-lg font-semibold ${
+                  darkMode 
+                    ? "border-pink-400/30 text-pink-300 hover:bg-pink-500/10 hover:border-pink-400" 
+                    : "border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400"
+                } transition-all duration-300 hover:scale-105`}
+              >
                 Learn More
               </Button>
             </div>
-          </div>
 
-          {/* Dashboard Preview */}
-          <div className={`rounded-2xl overflow-hidden shadow-2xl border ${
-            darkMode 
-              ? "border-pink-800/30 bg-gray-900/50" 
-              : "border-purple-100 bg-white/50"
-          }`}>
-            <div className={`h-8 ${
-              darkMode 
-                ? "bg-gray-800" 
-                : "bg-gray-100"
-            } flex items-center px-4`}>
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            {/* Trust Indicators */}
+            <div className={`flex justify-center items-center space-x-8 ${
+              darkMode ? "text-pink-200/60" : "text-purple-600/60"
+            }`}>
+              <div className="flex items-center space-x-2">
+                <Users className="h-5 w-5" />
+                <span className="text-sm">10M+ Happy Users</span>
               </div>
-            </div>
-            <div className="p-4">
-              <div className={`rounded-xl overflow-hidden ${
-                darkMode 
-                  ? "bg-black border border-pink-900/30" 
-                  : "bg-gradient-to-b from-pink-50 to-purple-50 border border-purple-100"
-              }`}>
-                <div className={`p-4 ${
-                  darkMode 
-                    ? "bg-gradient-to-r from-pink-900/50 to-purple-900/50" 
-                    : "bg-gradient-to-r from-pink-200/50 to-purple-200/50"
-                }`}>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <Heart className={`h-6 w-6 ${darkMode ? "text-pink-400" : "text-pink-500"} mr-2`} />
-                      <span className={`text-lg font-bold ${
-                        darkMode ? "text-pink-300" : "text-purple-800"
-                      }`}>My Cycle</span>
-                    </div>
-                    <div className="flex space-x-2">
-                      <div className={`w-8 h-8 rounded-full ${
-                        darkMode ? "bg-gray-800" : "bg-white/70"
-                      } flex items-center justify-center`}>
-                        <Calendar className={`h-4 w-4 ${
-                          darkMode ? "text-pink-400" : "text-purple-500"
-                        }`} />
-                      </div>
-                      <div className={`w-8 h-8 rounded-full ${
-                        darkMode ? "bg-gray-800" : "bg-white/70"
-                      } flex items-center justify-center`}>
-                        <Shield className={`h-4 w-4 ${
-                          darkMode ? "text-pink-400" : "text-purple-500"
-                        }`} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="grid grid-cols-7 gap-2 mb-6">
-                    {Array.from({ length: 31 }).map((_, i) => (
-                      <div 
-                        key={i} 
-                        className={`aspect-square rounded-full flex items-center justify-center text-sm ${
-                          i === 14 
-                            ? darkMode 
-                              ? "bg-pink-800 text-pink-100" 
-                              : "bg-pink-200 text-purple-800"
-                            : i >= 12 && i <= 16 
-                              ? darkMode 
-                                ? "bg-pink-900/50 text-pink-200" 
-                                : "bg-purple-100 text-purple-700"
-                              : darkMode 
-                                ? "bg-gray-800 text-gray-400" 
-                                : "bg-white text-gray-500"
-                        }`}
-                      >
-                        {i + 1}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="space-y-4">
-                    <div className={`p-4 rounded-lg ${
-                      darkMode ? "bg-gray-800" : "bg-white"
-                    }`}>
-                      <div className="flex items-center mb-2">
-                        <div className={`w-3 h-3 rounded-full ${
-                          darkMode ? "bg-pink-600" : "bg-pink-400"
-                        } mr-3`}></div>
-                        <span className={`font-medium ${
-                          darkMode ? "text-pink-300" : "text-purple-700"
-                        }`}>Next Cycle</span>
-                      </div>
-                      <p className={`text-sm ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
-                      }`}>June 15, 2024</p>
-                    </div>
-                    <div className={`p-4 rounded-lg ${
-                      darkMode ? "bg-gray-800" : "bg-white"
-                    }`}>
-                      <div className="flex items-center mb-2">
-                        <div className={`w-3 h-3 rounded-full ${
-                          darkMode ? "bg-purple-600" : "bg-purple-400"
-                        } mr-3`}></div>
-                        <span className={`font-medium ${
-                          darkMode ? "text-pink-300" : "text-purple-700"
-                        }`}>Fertile Window</span>
-                      </div>
-                      <p className={`text-sm ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
-                      }`}>June 1 - June 5, 2024</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="flex items-center space-x-2">
+                <Star className="h-5 w-5 fill-current" />
+                <span className="text-sm">4.9/5 Rating</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Shield className="h-5 w-5" />
+                <span className="text-sm">100% Private</span>
               </div>
             </div>
           </div>
@@ -252,83 +208,154 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className={`py-20 ${
-        darkMode ? "bg-gray-900" : "bg-purple-50"
+      <section id="features" className={`py-20 ${
+        darkMode ? "bg-slate-900" : "bg-pink-50"
       }`}>
+     
         <div className="container mx-auto px-6">
-          <h2 className={`text-3xl font-bold text-center mb-16 font-display ${
-            darkMode ? "text-pink-300" : "text-purple-800"
-          }`}>Why Choose Periody?</h2>
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}>
+              Everything You Need in{" "}
+              <span className={`bg-gradient-to-r ${
+                darkMode 
+                  ? "from-pink-400 to-purple-400" 
+                  : "from-pink-600 to-purple-600"
+              } bg-clip-text text-transparent`}>
+                One App
+              </span>
+            </h2>
+            <p className={`text-xl ${
+              darkMode ? "text-pink-100/70" : "text-purple-700"
+            }`}>
+              Comprehensive period tracking designed with love and care
+            </p>
+          </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className={`p-8 rounded-xl ${
-              darkMode 
-                ? "bg-black border border-pink-900/30" 
-                : "bg-white shadow-lg"
-            }`}>
-              <div className={`w-14 h-14 rounded-full mb-6 flex items-center justify-center ${
-                darkMode 
-                  ? "bg-pink-900/50" 
-                  : "bg-pink-100"
-              }`}>
-                <Calendar className={`h-7 w-7 ${
-                  darkMode ? "text-pink-400" : "text-pink-500"
-                }`} />
-              </div>
-              <h3 className={`text-xl font-bold mb-4 ${
-                darkMode ? "text-pink-300" : "text-purple-800"
-              }`}>Accurate Predictions</h3>
-              <p className={darkMode ? "text-pink-200/70" : "text-purple-600"}>
-                Our algorithm learns from your data to provide increasingly accurate cycle predictions, helping you plan ahead with confidence.
-              </p>
-            </div>
-            
-            <div className={`p-8 rounded-xl ${
-              darkMode 
-                ? "bg-black border border-pink-900/30" 
-                : "bg-white shadow-lg"
-            }`}>
-              <div className={`w-14 h-14 rounded-full mb-6 flex items-center justify-center ${
-                darkMode 
-                  ? "bg-pink-900/50" 
-                  : "bg-pink-100"
-              }`}>
-                <Shield className={`h-7 w-7 ${
-                  darkMode ? "text-pink-400" : "text-pink-500"
-                }`} />
-              </div>
-              <h3 className={`text-xl font-bold mb-4 ${
-                darkMode ? "text-pink-300" : "text-purple-800"
-              }`}>Privacy First</h3>
-              <p className={darkMode ? "text-pink-200/70" : "text-purple-600"}>
-                Your data stays on your device. We prioritize your privacy and ensure your sensitive information remains secure and private.
-              </p>
-            </div>
-            
-            <div className={`p-8 rounded-xl ${
-              darkMode 
-                ? "bg-black border border-pink-900/30" 
-                : "bg-white shadow-lg"
-            }`}>
-              <div className={`w-14 h-14 rounded-full mb-6 flex items-center justify-center ${
-                darkMode 
-                  ? "bg-pink-900/50" 
-                  : "bg-pink-100"
-              }`}>
-                <Heart className={`h-7 w-7 ${
-                  darkMode ? "text-pink-400" : "text-pink-500"
-                }`} />
-              </div>
-              <h3 className={`text-xl font-bold mb-4 ${
-                darkMode ? "text-pink-300" : "text-purple-800"
-              }`}>Love & Care</h3>
-              <p className={darkMode ? "text-pink-200/70" : "text-purple-600"}>
-                We are dedicated to providing a supportive and caring experience for all users.
-              </p>
-            </div>
+            {[
+              {
+                icon: Calendar,
+                title: "Smart Predictions",
+                description: "AI-powered cycle predictions that learn from your unique patterns to provide accurate forecasts and helpful reminders.",
+                gradient: "from-pink-500 to-purple-500"
+              },
+              {
+                icon: Shield,
+                title: "Complete Privacy",
+                description: "Your data is encrypted and stays on your device. We never share your personal information with anyone, ever.",
+                gradient: "from-purple-500 to-pink-500"
+              },
+              {icon: Heart,
+                title: "Mood & Symptoms",
+                description: "Track your mood, symptoms, and energy levels to understand your body better and improve your wellbeing.",
+                gradient: "from-pink-500 to-red-500"
+              }
+            ].map((feature, index) => (
+              <Card 
+                key={index}
+                className={`group p-8 ${
+                  darkMode 
+                    ? "bg-slate-900/50 border-pink-500/20 hover:border-pink-400/40" 
+                    : "bg-white/80 border-purple-200 hover:border-purple-300"
+                } backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer`}
+              >
+                <CardContent className="p-0">
+                  <div className={`w-16 h-16 rounded-full mb-6 flex items-center justify-center bg-gradient-to-r ${feature.gradient} group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className={`text-xl font-bold mb-4 ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}>
+                    {feature.title}
+                  </h3>
+                  <p className={`leading-relaxed ${
+                    darkMode ? "text-pink-100/70" : "text-purple-700"
+                  }`}>
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Statistics Section */}
+      <section className={`py-20 ${
+        darkMode ? "bg-slate-900" : "bg-pink-50"
+      }`}>
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
+            {[
+              { number: "10M+", label: "Active Users" },
+              { number: "99.9%", label: "Accuracy Rate" },
+              { number: "150+", label: "Countries" },
+              { number: "4.9★", label: "App Store Rating" }
+            ].map((stat, index) => (
+              <div key={index} className="group">
+                <div className={`text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r ${
+                  darkMode 
+                    ? "from-pink-400 to-purple-400" 
+                    : "from-pink-600 to-purple-600"
+                } bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
+                  {stat.number}
+                </div>
+                <div className={`text-lg ${
+                  darkMode ? "text-pink-100/70" : "text-purple-700"
+                }`}>
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`py-20 ${ 
+          darkMode ? "bg-slate-900" : "bg-pink-50"
+      }`}>
+        <div className="container mx-auto px-6 text-center">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
+            darkMode ? "text-white" : "text-gray-900"
+          }`}>
+            Ready to Take Control?
+          </h2>
+          <p className={`text-xl mb-10 ${
+            darkMode ? "text-pink-100/80" : "text-purple-700"
+          }`}>
+            Join millions of women who trust FlowCare for their period tracking needs
+          </p>
+          <div className="flex justify-center space-x-4">
+            <Button className={`rounded-full px-8 py-6 text-lg font-semibold ${
+              darkMode 
+                ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25" 
+                : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-purple-500/25"
+            } transition-all duration-300 hover:scale-105 hover:shadow-2xl`}>
+              Download Now - Free
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className={`py-12 ${
+         darkMode ? "bg-slate-900" : "bg-pink-50"
+      } text-white`}>
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center mb-4 md:mb-0">
+              <Heart className="h-6 w-6 text-pink-400 mr-2" />
+              <span className={`text-xl font-bold ${darkMode ? "text-white" : "text-purple-900"}`}>FlowCare</span>
+            </div>
+               <div className={`text-sm ${darkMode ? "text-gray-400" : "text-purple-700"}`}>
+              © 2025 FlowCare. Made with ❤️ by Rucha.
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
