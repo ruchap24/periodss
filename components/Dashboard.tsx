@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Heart, CalendarIcon, Settings, Cloud, Leaf, Moon, Sun } from "lucide-react"
+import { Heart, CalendarIcon, Settings, Cloud, Leaf, Moon, Sun, Sparkles, Star, Flower, Cherry, TreePine, Clover } from "lucide-react"
 import { format, addDays, differenceInDays } from "date-fns"
 import CycleStatus from "@/components/cycle-status"
 import PeriodForm from "@/components/period-form"
@@ -12,12 +12,13 @@ import SettingsModal from "@/components/settings-modal"
 import { useToast } from "@/hooks/use-toast"
 import { calculateCycleDates, type CycleData } from "@/lib/cycle-calculations"
 import { requestNotificationPermission, scheduleNotification } from "@/lib/notifications"
+import { MagicCard } from "@/components/ui/magic-card"
 
 export default function Dashboard() {
   const [cycleData, setCycleData] = useState<CycleData | null>(null)
   const [showPeriodForm, setShowPeriodForm] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [petName, setPetName] = useState("Totoro")
+  const [petName, setPetName] = useState("Cutie")
   const [darkMode, setDarkMode] = useState(true)
   const { toast } = useToast()
 
@@ -203,26 +204,59 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={`min-h-screen ${
+  <div className={`min-h-screen ${
       darkMode 
         ? "bg-black text-pink-300" 
         : "bg-gradient-to-b from-pink-100 to-purple-50 text-purple-800"
     } bg-fixed relative transition-colors duration-300`}>
       {/* Decorative elements */}
-      <div className={`absolute top-10 left-10 ${darkMode ? "text-pink-800" : "text-pink-200"} opacity-30`}>
-        <Cloud size={120} />
-      </div>
-      <div className={`absolute bottom-10 right-10 ${darkMode ? "text-purple-800" : "text-purple-200"} opacity-30`}>
-        <Leaf size={120} />
-      </div>
-      <div className={`absolute top-40 right-20 ${darkMode ? "text-pink-800" : "text-pink-200"} opacity-20`}>
-        <Cloud size={80} />
-      </div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Floating Flowers */}
+        
+        <div className={`absolute top-40 right-20 ${darkMode ? "text-purple-800/30" : "text-purple-200/40"} animate-bounce`} style={{ animationDelay: '1s', animationDuration: '3s' }}>
+          <Cherry size={60} className="transform -rotate-30" />
+        </div>
+        <div className={`absolute bottom-32 left-20 ${darkMode ? "text-pink-700/30" : "text-pink-300/40"} animate-pulse`} style={{ animationDelay: '2s' }}>
+          <Clover size={50} className="transform rotate-45" />
+        </div>
+        <div className={`absolute bottom-20 right-32 ${darkMode ? "text-purple-700/30" : "text-purple-300/40"} animate-bounce`} style={{ animationDelay: '0.5s', animationDuration: '4s' }}>
+          <TreePine size={90} className="transform -rotate-6" />
+        </div>
+        
+        {/* Clouds */}
+        <div className={`absolute top-10 left-10 ${darkMode ? "text-pink-800/20" : "text-pink-200/30"} animate-float`}>
+          <Cloud size={120} />
+        </div>
+        {/* <div className={`absolute top-60 right-10 ${darkMode ? "text-purple-800/20" : "text-purple-200/30"} animate-float`} style={{ animationDelay: '2s' }}>
+          <Cloud size={100} />
+        </div> */}
+        {/* <div className={`absolute bottom-40 left-32 ${darkMode ? "text-pink-700/20" : "text-pink-300/30"} animate-float`} style={{ animationDelay: '1s' }}>
+          <Cloud size={80} />
+        </div> */}
+        
+        {/* Leaves */}
+        {/* <div className={`absolute bottom-10 right-10 ${darkMode ? "text-purple-800/25" : "text-purple-200/35"} animate-sway`}>
+          <Leaf size={100} className="transform rotate-12" />
+        </div> */}
+        {/* <div className={`absolute top-80 left-8 ${darkMode ? "text-pink-800/25" : "text-pink-200/35"} animate-sway`} style={{ animationDelay: '1.5s' }}>
+          <Leaf size={90} className="transform -rotate-45" />
+        </div> */}
+        
+        {/* Stars */}
+        <div className={`absolute top-32 right-40 ${darkMode ? "text-pink-600/40" : "text-pink-400/50"} animate-twinkle`}>
+          <Star size={40} className="fill-current" />
+        </div>
+        <div className={`absolute bottom-60 left-40 ${darkMode ? "text-pink-600/40" : "text-purple-400/50"} animate-twinkle`} style={{ animationDelay: '1s' }}>
+          <Star size={35} className="fill-current" />
+        </div>
+       
+       
+       </div>
       
       <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <header className="flex justify-between items-center mb-8">
           <div className="flex items-center">
-            <Heart className={`h-8 w-8 ${darkMode ? "text-pink-400" : "text-pink-500"} mr-3`} />
+             <Heart className={`h-8 w-8 ${darkMode ? "text-pink-400" : "text-pink-500"} mr-3`} />
             <h1 className={`text-3xl font-bold ${darkMode ? "text-pink-300" : "text-purple-800"} font-display tracking-wide`}>
               My {petName}'s Cycle
             </h1>
@@ -288,72 +322,30 @@ export default function Dashboard() {
                 } pb-6`}>
                 <CardTitle className={`text-center ${
                   darkMode ? "text-pink-300" : "text-purple-800"
-                } text-xl`}>Important Dates</CardTitle>
+                } text-xl`}>
+                  {/* <Sparkles className="h-6 w-6 mr-2 animate-pulse" /> */}
+                  Period Wisdom
+                </CardTitle>
               </CardHeader>
-              <CardContent className="pt-6 pb-8">
-                {cycleData ? (
-                  <div className="space-y-5">
-                    {cycleData.nextPeriodStart && (
-                      <div className="flex items-center">
-                        <div className={`w-4 h-4 rounded-full ${
-                          darkMode ? "bg-pink-600" : "bg-pink-400"
-                        } mr-4 shadow-sm`}></div>
-                        <div>
-                          <p className={`${darkMode ? "text-pink-200" : "text-purple-700"} font-medium`}>Next Cycle</p>
-                          <p className={darkMode ? "text-pink-300" : "text-purple-600"}>
-                            {format(cycleData.nextPeriodStart, "MMMM d, yyyy")}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    {cycleData.fertileWindowStart && cycleData.fertileWindowEnd && (
-                      <div className="flex items-center">
-                        <div className={`w-4 h-4 rounded-full ${
-                          darkMode ? "bg-purple-600" : "bg-purple-300"
-                        } mr-4 shadow-sm`}></div>
-                        <div>
-                          <p className={`${darkMode ? "text-purple-200" : "text-purple-700"} font-medium`}>
-                            Fertile Window
-                          </p>
-                          <p className={darkMode ? "text-purple-300" : "text-purple-600"}>
-                            {format(cycleData.fertileWindowStart, "MMMM d")} -{" "}
-                            {format(cycleData.fertileWindowEnd, "MMMM d, yyyy")}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    {cycleData.ovulationDay && (
-                      <div className="flex items-center">
-                        <div className={`w-4 h-4 rounded-full ${
-                          darkMode ? "bg-purple-500" : "bg-purple-400"
-                        } mr-4 shadow-sm`}></div>
-                        <div>
-                          <p className={`${darkMode ? "text-purple-200" : "text-purple-700"} font-medium`}>Ovulation Day</p>
-                          <p className={darkMode ? "text-purple-300" : "text-purple-600"}>
-                            {format(cycleData.ovulationDay, "MMMM d, yyyy")}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <p className="text-purple-600 mb-4">No cycle data recorded yet</p>
-                    <Button 
-                      onClick={() => setShowPeriodForm(true)} 
-                      className="mt-2 bg-pink-500 hover:bg-pink-600 text-white shadow-md rounded-full px-6"
-                    >
-                      Add First Cycle
-                    </Button>
-                  </div>
-                )}
+              <CardContent className="pt-6 pb-6">
+                <div className="space-y-4 text-center">
+                  <p className={`${darkMode ? "text-pink-200" : "text-purple-700"} text-sm leading-relaxed`}>
+                    💫 Your menstrual cycle is a monthly reminder of your body's incredible power to create and renew.
+                  </p>
+                  <p className={`${darkMode ? "text-pink-300" : "text-purple-600"} text-sm leading-relaxed`}>
+                    🌸 Tracking helps you understand your unique patterns, mood changes, and energy levels throughout your cycle.
+                  </p>
+                  <p className={`${darkMode ? "text-purple-200" : "text-purple-700"} text-sm leading-relaxed`}>
+                    ✨ Knowledge is power - use this data to plan important events, optimize your workouts, and practice self-care.
+                  </p>
+                </div>
               </CardContent>
             </Card>
+
+            
           </div>
 
-          <div>
+          <div className="space-y-8">
             <Card className={`${
               darkMode 
                 ? "backdrop-blur-md bg-black/40 border-pink-800/50" 
@@ -440,7 +432,82 @@ export default function Dashboard() {
                   darkMode ? "text-pink-300" : "text-purple-800"
                 } text-xs`}>Ovulation</span>
                   </div>
-                </div>
+               </div>
+              </CardContent>
+            </Card>
+            <Card className={`${
+              darkMode 
+                ? "backdrop-blur-md bg-black/40 border-pink-800/50" 
+                : "backdrop-blur-md bg-white/40 border-0"
+              } shadow-lg rounded-xl overflow-hidden`}>
+              <CardHeader className={`${
+                darkMode 
+                  ? "bg-gradient-to-r from-pink-900/80 to-black/80" 
+                  : "bg-gradient-to-r from-pink-200/80 to-purple-200/80"
+                } pb-6`}>
+                <CardTitle className={`text-center ${
+                  darkMode ? "text-pink-300" : "text-purple-800"
+                } text-xl`}>Important Dates</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6 pb-8">
+                {cycleData ? (
+                  <div className="space-y-5">
+                    {cycleData.nextPeriodStart && (
+                      <div className="flex items-center">
+                        <div className={`w-4 h-4 rounded-full ${
+                          darkMode ? "bg-pink-600" : "bg-pink-400"
+                        } mr-4 shadow-sm`}></div>
+                        <div>
+                          <p className={`${darkMode ? "text-pink-200" : "text-purple-700"} font-medium`}>Next Cycle</p>
+                          <p className={darkMode ? "text-pink-300" : "text-purple-600"}>
+                            {format(cycleData.nextPeriodStart, "MMMM d, yyyy")}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {cycleData.fertileWindowStart && cycleData.fertileWindowEnd && (
+                      <div className="flex items-center">
+                        <div className={`w-4 h-4 rounded-full ${
+                          darkMode ? "bg-purple-600" : "bg-purple-300"
+                        } mr-4 shadow-sm`}></div>
+                        <div>
+                          <p className={`${darkMode ? "text-purple-200" : "text-purple-700"} font-medium`}>
+                            Fertile Window
+                          </p>
+                          <p className={darkMode ? "text-purple-300" : "text-purple-600"}>
+                            {format(cycleData.fertileWindowStart, "MMMM d")} -{" "}
+                            {format(cycleData.fertileWindowEnd, "MMMM d, yyyy")}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {cycleData.ovulationDay && (
+                      <div className="flex items-center">
+                        <div className={`w-4 h-4 rounded-full ${
+                          darkMode ? "bg-purple-500" : "bg-purple-400"
+                        } mr-4 shadow-sm`}></div>
+                        <div>
+                          <p className={`${darkMode ? "text-purple-200" : "text-purple-700"} font-medium`}>Ovulation Day</p>
+                          <p className={darkMode ? "text-purple-300" : "text-purple-600"}>
+                            {format(cycleData.ovulationDay, "MMMM d, yyyy")}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-purple-600 mb-4">No cycle data recorded yet</p>
+                    <Button 
+                      onClick={() => setShowPeriodForm(true)} 
+                      className="mt-2 bg-pink-500 hover:bg-pink-600 text-white shadow-md rounded-full px-6"
+                    >
+                      Add First Cycle
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -452,6 +519,6 @@ export default function Dashboard() {
           <SettingsModal petName={petName} setPetName={setPetName} onClose={() => setShowSettings(false)} />
         )}
       </div>
-    </div>
+  </div>
   )
 }

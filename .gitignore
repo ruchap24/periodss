@@ -41,5 +41,3 @@ next-env.d.ts
 *.swp
 *.swo
 
-# Generated images
-/public/generated/

@@ -54,25 +54,38 @@ export default function LandingPage() {
   return (
     <div className={`min-h-screen ${
       darkMode 
-         ? "bg-slate-900 text-pink-100" 
-        : "bg-pink-50 text-purple-900"
+         ? "bg-black text-white" 
+        : "bg-gradient-to-b from-pink-100 to-purple-50 text-purple-800"
     } transition-all duration-500`}>
+
+      <div className="max-w-7xl mx-auto">
+        <div className="absolute -z-10 pointer-events-none inset-0 overflow-hidden -mx-28">
+          <div className="absolute -z-1 -top-[128%] sm:-top-[107%] xl:-top-[73%] left-1/2 -translate-x-1/2 -u-z-10 hero-circle-gradient w-full h-[1282px] rounded-full max-w-[1282px]"></div>
+          <div className="absolute -z-1 -top-[112%] sm:-top-[93%] xl:-top-[62%] left-1/2 -translate-x-1/2 -u-z-10 hero-circle-gradient w-full h-[1046px] rounded-full max-w-[1046px]"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -u-z-10">
+            <img src="/blur-02.svg" alt="blur" className="max-w-none" />
+          </div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -u-z-10">
+            <img src="/blur-01.svg" alt="blur" className="max-w-none" />
+          </div>
+        </div>
+      </div>
 
       {/* Navbar */}
       <nav className={`fixed w-full z-50 ${
         darkMode 
-          ? "bg-slate-900/80 backdrop-blur-md border-b border-pink-500/20" 
+          ? "bg-black/80 backdrop-blur-md border-b border-pink-800/50" 
              : "bg-pink-50/80 backdrop-blur-md border-b border-purple-200/30"
       } transition-all duration-300`}>
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-2 py-6 flex justify-between items-center">
           <div className="flex items-center animate-fade-in">
             <div className="relative">
-              <Heart className={`h-8 w-8 ${darkMode ? "text-pink-400" : "text-pink-500"} mr-3 animate-pulse`} />
+              <Heart className={`h-8 w-8 ${darkMode ? "text-pink-600" : "text-pink-500"} mr-3 animate-pulse`} />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
             </div>
             <span className={`text-2xl font-bold bg-gradient-to-r ${
               darkMode 
-                ? "from-pink-400 to-purple-400" 
+                ? "from-pink-600 to-purple-600" 
                 : "from-pink-600 to-purple-600"
             } bg-clip-text text-transparent`}>
               FlowCare
@@ -86,7 +99,7 @@ export default function LandingPage() {
               onClick={toggleTheme}
               className={`${
                 darkMode 
-                  ? "text-pink-300 hover:text-pink-200 hover:bg-pink-500/20" 
+                  ? "text-white hover:text-pink-200 hover:bg-pink-500/20" 
                   : "text-purple-600 hover:text-purple-800 hover:bg-purple-100"
               } rounded-full transition-all duration-300 hover:scale-110`}
             >
@@ -97,7 +110,7 @@ export default function LandingPage() {
               onClick={() => scrollToSection('features')}
               variant="ghost" 
               className={`${
-                darkMode ? "text-pink-300 hover:text-pink-200" : "text-purple-700 hover:text-purple-900"
+                darkMode ? "text-white hover:text-pink-200" : "text-purple-700 hover:text-purple-900"
               } hidden md:block`}
             >
               Features
@@ -105,7 +118,7 @@ export default function LandingPage() {
             
             <Button className={`rounded-full px-6 py-2 ${
               darkMode 
-                ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25" 
+                ? "bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25" 
                 : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-purple-500/25"
             } transition-all duration-300 hover:scale-105 hover:shadow-xl`} onClick={() => router.push('/dashboard')}>
               Get Started
@@ -114,28 +127,17 @@ export default function LandingPage() {
         </div>
       </nav>
       {/* Hero Section */}
-      <section className="pt-32 pb-10 relative overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 left-10 w-64 h-64 rounded-full ${
-            darkMode ? "bg-pink-500/10" : "bg-pink-300/20"
-          } blur-3xl animate-pulse`}></div>
-          <div className={`absolute bottom-20 right-10 w-96 h-96 rounded-full ${
-            darkMode ? "bg-purple-500/10" : "bg-purple-300/20"
-          } blur-3xl animate-pulse`} style={{ animationDelay: "1s" }}></div>
-          <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full ${
-            darkMode ? "bg-pink-400/5" : "bg-pink-200/30"
-          } blur-3xl animate-pulse`} style={{ animationDelay: "2s" }}></div>
-        </div>
+      <section className="pt-80 pb-20 relative overflow-hidden">
+        
 
         <div className="container mx-auto px-6 relative z-10 ">
           <div className={`max-w-full mx-auto text-center transition-all duration-1000 ${
             isVisible ? "opacity-100 transform translate-y-0" : "opacity-0 transform translate-y-10"
           }`}>
-            <div className="mb-6">
+            <div className="mb-10">
               <span className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
                 darkMode 
-                  ? "bg-pink-500/20 text-pink-300 border border-pink-500/30" 
+                  ? "bg-pink-800/30 text-white border border-pink-800/50" 
                   : "bg-pink-100 text-pink-700 border border-pink-200"
               } animate-fade-in`}>
                 ✨ Your Personal Health Companion
@@ -145,29 +147,28 @@ export default function LandingPage() {
             <h1 className={`text-5xl md:text-7xl font-bold mb-6 leading-tight ${
               darkMode ? "text-white" : "text-gray-900"
             }`}>
-              Never Miss Your{" "}
+              Track Your Cycle with {" "}
               <span className={`bg-gradient-to-r ${
                 darkMode 
-                ? "from-pink-400 via-purple-400 to-pink-400" 
+                ? "from-pink-600 via-purple-600 to-pink-600" 
                   : "from-pink-600 via-purple-600 to-pink-600"
-              } bg-clip-text text-transparent animate-pulse`}>
-                Period
-              </span>{" "}
-              Again
+              } bg-clip-text text-transparent `}>
+                FlowCare
+              </span>
+            
             </h1>
             
             <p className={`text-xl md:text-2xl mb-10 leading-relaxed ${
-              darkMode ? "text-pink-100/80" : "text-purple-700"
+              darkMode ? "text-white/80" : "text-purple-600"
             }`}>
-              Empowering women with intelligent cycle tracking, personalized insights, 
-              and caring reminders for a healthier, more confident you.
+              Take control of your menstrual health with our beautiful, intuitive tracker. Understanding your cycle empowers you to plan better, feel better, and live better.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16">
               <Button className={`group rounded-full px-8 py-6 text-lg font-semibold ${
                 darkMode 
-                  ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25" 
-                  : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-purple-500/25"
+                  ? "bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-600 hover:to-purple-800 text-white shadow-xl shadow-pink-500/25" 
+                  : "bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-600 hover:to-purple-800 text-white shadow-xl shadow-purple-500/25"
               } transition-all duration-300 hover:scale-105 hover:shadow-2xl`} onClick={() => router.push('/dashboard')}>
                 Start Tracking Free
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:transform group-hover:translate-x-1 transition-transform" />
@@ -178,7 +179,7 @@ export default function LandingPage() {
                 onClick={() => scrollToSection('features')}
                 className={`rounded-full px-8 py-6 text-lg font-semibold ${
                   darkMode 
-                    ? "border-pink-400/30 text-pink-300 hover:bg-pink-500/10 hover:border-pink-400" 
+                    ? "border-pink-800/50 text-white hover:bg-pink-800/20 hover:border-pink-400" 
                     : "border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400"
                 } transition-all duration-300 hover:scale-105`}
               >
@@ -188,7 +189,7 @@ export default function LandingPage() {
 
             {/* Trust Indicators */}
             <div className={`flex justify-center items-center space-x-8 ${
-              darkMode ? "text-pink-200/60" : "text-purple-600/60"
+              darkMode ? "text-white/60" : "text-purple-600/60"
             }`}>
               <div className="flex items-center space-x-2">
                 <Users className="h-5 w-5" />
@@ -209,25 +210,19 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <section id="features" className={`py-20 ${
-        darkMode ? "bg-slate-900" : "bg-pink-50"
+        darkMode ? "bg-black" : "bg-pink-50"
       }`}>
      
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
-              darkMode ? "text-white" : "text-gray-900"
+              darkMode ? "text-white" : "text-black"
             }`}>
-              Everything You Need in{" "}
-              <span className={`bg-gradient-to-r ${
-                darkMode 
-                  ? "from-pink-400 to-purple-400" 
-                  : "from-pink-600 to-purple-600"
-              } bg-clip-text text-transparent`}>
-                One App
-              </span>
+              Everything You Need in One App
+              
             </h2>
             <p className={`text-xl ${
-              darkMode ? "text-pink-100/70" : "text-purple-700"
+              darkMode ? "text-white/70" : "text-purple-700"
             }`}>
               Comprehensive period tracking designed with love and care
             </p>
@@ -253,11 +248,13 @@ export default function LandingPage() {
                 gradient: "from-pink-500 to-red-500"
               }
             ].map((feature, index) => (
+
+      
               <Card 
                 key={index}
                 className={`group p-8 ${
                   darkMode 
-                    ? "bg-slate-900/50 border-pink-500/20 hover:border-pink-400/40" 
+                    ? "bg-black/50 border-pink-800/50 hover:border-pink-400/40" 
                     : "bg-white/80 border-purple-200 hover:border-purple-300"
                 } backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer`}
               >
@@ -277,6 +274,8 @@ export default function LandingPage() {
                   </p>
                 </CardContent>
               </Card>
+            
+                
             ))}
           </div>
         </div>
@@ -284,7 +283,7 @@ export default function LandingPage() {
 
       {/* Statistics Section */}
       <section className={`py-20 ${
-        darkMode ? "bg-slate-900" : "bg-pink-50"
+        darkMode ? "bg-black" : "bg-pink-50"
       }`}>
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8 text-center">
@@ -297,13 +296,13 @@ export default function LandingPage() {
               <div key={index} className="group">
                 <div className={`text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r ${
                   darkMode 
-                    ? "from-pink-400 to-purple-400" 
+                    ? "from-pink-700 to-purple-500" 
                     : "from-pink-600 to-purple-600"
                 } bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
                   {stat.number}
                 </div>
                 <div className={`text-lg ${
-                  darkMode ? "text-pink-100/70" : "text-purple-700"
+                  darkMode ? "text-white-100/70" : "text-purple-700"
                 }`}>
                   {stat.label}
                 </div>
@@ -315,7 +314,7 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className={`py-20 ${ 
-          darkMode ? "bg-slate-900" : "bg-pink-50"
+          darkMode ? "bg-black" : "bg-pink-50"
       }`}>
         <div className="container mx-auto px-6 text-center">
           <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
@@ -342,7 +341,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className={`py-12 ${
-         darkMode ? "bg-slate-900" : "bg-pink-50"
+         darkMode ? "bg-black" : "bg-pink-50"
       } text-white`}>
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
