@@ -336,13 +336,17 @@ export default function LandingPage() {
             Join millions of women who trust FlowCare for their period tracking needs
           </p>
           <div className="flex justify-center space-x-4">
-            <Button className={`rounded-full px-8 py-6 text-lg font-semibold ${
-              darkMode 
-                ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25" 
-                : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-purple-500/25"
-            } transition-all duration-300 hover:scale-105 hover:shadow-2xl`}>
-              join to the waitlist
-            </Button>
+            {/* <Button 
+  onClick={() => router.push('/waitlist')}  // Add this line
+  className={`rounded-full px-8 py-6 text-lg font-semibold ${
+    darkMode 
+      ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25" 
+      : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-purple-500/25"
+  } transition-all duration-300 hover:scale-105 hover:shadow-2xl`}
+>
+              Join the waitlist
+            </Button> */}
+
           </div>
         </div>
       </section>
