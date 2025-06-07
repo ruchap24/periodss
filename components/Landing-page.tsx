@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Heart, Calendar, Shield, ArrowRight, Moon, Sun, Star, Users, CheckCircle, ChevronDown } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation";
-import HeroTiles from "./herotiles"
+// import HeroTiles from "./herotiles"
 import { Testimonials } from "./testimonials"
 
 
@@ -196,8 +196,8 @@ export default function LandingPage() {
             </div>
 
             {/* Trust Indicators */}
-            {/* <div className={`flex justify-center items-center space-x-8 ${
-              darkMode ? "text-white/60" : "text-purple-600/60"
+            <div className={`flex justify-center items-center space-x-8 ${
+              darkMode ? "text-white/60" : "text-purple-600"
              }`}>
               <div className="flex items-center space-x-2">
                 <Users className="h-5 w-5" />
@@ -211,8 +211,8 @@ export default function LandingPage() {
                 <Shield className="h-5 w-5" />
                 <span className="text-sm">100% Private</span>
               </div>
-            </div> */}
- <HeroTiles darkMode={darkMode} />
+            </div>
+ {/* <HeroTiles darkMode={darkMode} /> */}
           </div>
         </div>
       </section>
