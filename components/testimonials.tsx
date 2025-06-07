@@ -142,7 +142,7 @@ export function Testimonials() {
             ))}
           </motion.div>
         </div>
-      </div>
+      </divmanial 
     </section>
   );
 }
