@@ -206,7 +206,7 @@ export default function Dashboard() {
   return (
   <div className={`min-h-screen ${
       darkMode 
-        ? "bg-black text-pink-300" 
+        ? "bg-[#020617] text-pink-300" 
         : "bg-gradient-to-b from-pink-100 to-purple-50 text-purple-800"
     } bg-fixed relative transition-colors duration-300`}>
       {/* Decorative elements */}
@@ -300,7 +300,7 @@ export default function Dashboard() {
                 darkMode 
                   ? "bg-gradient-to-r from-pink-900/80 to-black/80" 
                   : "bg-gradient-to-r from-pink-200/80 to-purple-200/80"
-                } pb-6`}>
+                } pb-7`}>
                 <CardTitle className={`text-center ${
                   darkMode ? "text-pink-300" : "text-purple-800"
                 } text-xl`}>Today's Status</CardTitle>
@@ -319,7 +319,7 @@ export default function Dashboard() {
                 darkMode 
                   ? "bg-gradient-to-r from-pink-900/80 to-black/80" 
                   : "bg-gradient-to-r from-pink-200/80 to-purple-200/80"
-                } pb-6`}>
+                } pb-7`}>
                 <CardTitle className={`text-center ${
                   darkMode ? "text-pink-300" : "text-purple-800"
                 } text-xl`}>
@@ -327,7 +327,7 @@ export default function Dashboard() {
                   Period Wisdom
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-6 pb-6">
+              <CardContent className="pt-8 pb-8">
                 <div className="space-y-4 text-center">
                   <p className={`${darkMode ? "text-pink-200" : "text-purple-700"} text-sm leading-relaxed`}>
                     💫 Your menstrual cycle is a monthly reminder of your body's incredible power to create and renew.
@@ -355,10 +355,10 @@ export default function Dashboard() {
                 darkMode 
                   ? "bg-gradient-to-r from-pink-900/80 to-black/80" 
                   : "bg-gradient-to-r from-pink-200/80 to-purple-200/80"
-                } pb-6 flex justify-between items-center`}>
-                <CardTitle className={`text-center ${
+                } pb-5 flex justify-between items-center`}>
+                {/* <CardTitle className={`text-center ${
                   darkMode ? "text-pink-300" : "text-purple-800"
-                } text-xl`}>Calendar</CardTitle>
+                } text-xl`}>Calendar</CardTitle> */}
                 <Button
                   variant="outline"
                   size="sm"
@@ -373,7 +373,7 @@ export default function Dashboard() {
                   Add Cycle
                 </Button>
               </CardHeader>
-              <CardContent className="pt-6 pb-8">
+              <CardContent className="pt-4 pb-4">
                 <div className="calendar-container">
                   <Calendar
                     mode="single"

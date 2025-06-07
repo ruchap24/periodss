@@ -49,12 +49,22 @@ export default function LandingPage() {
     element?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  
   return (
-    <div className={`min-h-screen ${
+     <div className={`min-h-screen relative ${
       darkMode 
-         ? "bg-black text-white" 
-        : "bg-gradient-to-b from-pink-100 to-purple-50 text-purple-800"
+         ? "bg-[#020617]" 
+        : "bg-gradient-to-b from-pink-100 to-purple-50"
     } transition-all duration-500`}>
+      {/* Dark Radial Glow Background - Only show in dark mode */}
+      {darkMode && (
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `radial-gradient(circle 800px at 50% 200px, #3e3e3e, transparent)`,
+          }}
+        />
+      )}
 
       <div className="max-w-7xl mx-auto">
         <div className="absolute -z-10 pointer-events-none inset-0 overflow-hidden -mx-28">
@@ -73,7 +83,7 @@ export default function LandingPage() {
       <nav className={`fixed w-full z-50 ${
         darkMode 
           ? "bg-black/80 backdrop-blur-md border-b border-pink-800/50" 
-             : "bg-pink-50/80 backdrop-blur-md border-b border-purple-200/30"
+             : "bg-pink-50/80 backdrop-blur-md border-b border-pink-200/30"
       } transition-all duration-300`}>
         <div className="container mx-auto px-2 py-6 flex justify-between items-center">
           <div className="flex items-center animate-fade-in">
@@ -208,9 +218,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className={`py-40 ${
-        darkMode ? "bg-black" : "bg-pink-50"
-      }`}>
+      <section id="features" className={`py-40`}>
      
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -253,7 +261,7 @@ export default function LandingPage() {
                 key={index}
                 className={`group p-8 ${
                   darkMode 
-                    ? "bg-black/50 border-pink-800/50 hover:border-pink-400/40" 
+                    ? "bg-[#020617] border-pink-800/50 hover:border-pink-400/40" 
                     : "bg-white/80 border-purple-200 hover:border-purple-300"
                 } backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer`}
               >
@@ -281,9 +289,7 @@ export default function LandingPage() {
       </section>
 
       {/* Statistics Section */}
-      <section className={`py-20 ${
-        darkMode ? "bg-black" : "bg-pink-50"
-      }`}>
+      <section className={`py-20`}>
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             {[
@@ -312,11 +318,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <Testimonials />
+      <Testimonials darkMode={darkMode}/>
 
       {/* CTA Section */}
       <section className={`py-20 ${ 
-          darkMode ? "bg-black" : "bg-pink-50"
+          darkMode ? "bg-[#020617]" : "bg-pink-50"
       }`}>
         <div className="container mx-auto px-6 text-center">
           <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${
@@ -343,7 +349,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className={`py-12 ${
-         darkMode ? "bg-black" : "bg-pink-50"
+         darkMode ? "bg-[#020617]" : "bg-pink-50"
       } text-white`}>
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">

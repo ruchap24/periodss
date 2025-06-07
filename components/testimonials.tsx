@@ -10,6 +10,13 @@ import { Card, CardContent } from "../components/ui/card";
 // Or, if the correct path is different, update accordingly.
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
+
+
+
+interface TestimonialsProps {
+  darkMode: boolean;
+}
 
 // Testimonials Data
 const testimonials = [
@@ -52,10 +59,13 @@ const testimonials = [
   },
 ];
 
-// Testimonials Component
-export function Testimonials() {
+
+// Update component to accept darkMode prop
+export function Testimonials({ darkMode }: TestimonialsProps) {
   return (
-    <div className="py-20 bg-black text-white" id="testimonials">
+    <div className={`py-20 ${
+      darkMode ? 'bg-[#020617] text-white' : 'bg-gradient-to-b from-pink-50 to-purple-40'
+    }`} id="testimonials">
       <div className="container px-4 mx-auto max-w-6xl">
         <div className="max-w-2xl mx-auto text-center mb-16">
           <motion.h2
@@ -63,7 +73,9 @@ export function Testimonials() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold mb-3"
+            className={`text-4xl md:text-5xl font-bold mb-3 ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}
           >
             What Our Users Say
           </motion.h2>
@@ -79,7 +91,9 @@ export function Testimonials() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mx-auto"
+            className={`text-lg ${
+              darkMode ? 'text-zinc-400' : 'text-gray-600'
+            } max-w-2xl mx-auto`}
           >
             Join thousands of satisfied users who have found it helpful
           </motion.p>
@@ -103,29 +117,26 @@ export function Testimonials() {
             {[...testimonials, ...testimonials].map((testimonial, index) => (
               <Card
                 key={`${testimonial.id}-${index}`}
-                className="w-[350px] flex-shrink-0 bg-zinc-900 border-none"
+                className={`w-[350px] flex-shrink-0 border-none ${
+                  darkMode 
+                    ? 'bg-zinc-900 text-white' 
+                    : 'bg-white bg-opacity-80 text-gray-900'
+                }`}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <Avatar>
-                      <AvatarImage
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                      />
+                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                       <AvatarFallback>
-                        {testimonial.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+                        {testimonial.name.split(" ").map((n) => n[0]).join("")}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="font-semibold text-white">
+                      <h3 className={`font-semibold ${
+                        darkMode ? 'text-white' : 'text-gray-900'
+                      }`}>
                         {testimonial.name}
                       </h3>
-                      {/* <p className="text-sm text-muted-foreground">
-                        {testimonial.role}
-                      </p> */}
                     </div>
                   </div>
                   <div className="flex mb-4">
@@ -136,7 +147,11 @@ export function Testimonials() {
                       />
                     ))}
                   </div>
-                  <p className="text-muted-foreground">{testimonial.content}</p>
+                  <p className={`${
+                    darkMode ? 'text-zinc-400' : 'text-gray-600'
+                  }`}>
+                    {testimonial.content}
+                  </p>
                 </CardContent>
               </Card>
             ))}
