@@ -82,8 +82,8 @@ export default function LandingPage() {
       {/* Navbar */}
       <nav className={`fixed w-full z-50 ${
         darkMode 
-          ? "bg-black/80 backdrop-blur-md border-b border-pink-800/50" 
-             : "bg-pink-50/80 backdrop-blur-md border-b border-pink-200/30"
+          ? "backdrop-blur-md " 
+             : "bg-pink-50/80 backdrop-blur-md"
       } transition-all duration-300`}>
         <div className="container mx-auto px-2 py-6 flex justify-between items-center">
           <div className="flex items-center animate-fade-in">
@@ -341,7 +341,7 @@ export default function LandingPage() {
                 ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25" 
                 : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-purple-500/25"
             } transition-all duration-300 hover:scale-105 hover:shadow-2xl`}>
-              Download Now - Free
+              join to the waitlist
             </Button>
           </div>
         </div>
