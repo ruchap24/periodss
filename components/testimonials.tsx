@@ -55,7 +55,7 @@ const testimonials = [
 // Testimonials Component
 export function Testimonials() {
   return (
-    <section className="py-20 bg-black text-white" id="testimonials">
+    <div className="py-20 bg-black text-white" id="testimonials">
       <div className="container px-4 mx-auto max-w-6xl">
         <div className="max-w-2xl mx-auto text-center mb-16">
           <motion.h2
@@ -142,7 +142,7 @@ export function Testimonials() {
             ))}
           </motion.div>
         </div>
-      </divmanial 
-    </section>
+      </div>
+    </div>
   );
 }
