@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Heart, Calendar, Shield, ArrowRight, Moon, Sun, Star, Users, CheckCircle, ChevronDown } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation";
+import HeroTiles from "./herotiles"
+import { Testimonials } from "./testimonials"
 
 
 export default function LandingPage() {
@@ -14,7 +16,6 @@ export default function LandingPage() {
     const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Check system preference
     const savedTheme = localStorage.getItem("theme")
     if (savedTheme) {
       setDarkMode(savedTheme === "dark")
@@ -26,15 +27,12 @@ export default function LandingPage() {
 
   useEffect(() => {
     setIsVisible(true)
-    // Check system preference
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
     setDarkMode(prefersDark)
   }, [])
   useEffect(() => {
-    // Save theme preference to localStorage
     localStorage.setItem("theme", darkMode ? "dark" : "light")
     
-    // Apply dark mode class to document
     if (darkMode) {
       document.documentElement.classList.add("dark")
     } else {
@@ -127,7 +125,7 @@ export default function LandingPage() {
         </div>
       </nav>
       {/* Hero Section */}
-      <section className="pt-80 pb-20 relative overflow-hidden">
+      <section className="pt-60 pb-20 relative overflow-hidden">
         
 
         <div className="container mx-auto px-6 relative z-10 ">
@@ -145,7 +143,7 @@ export default function LandingPage() {
             </div>
             
             <h1 className={`text-5xl md:text-7xl font-bold mb-6 leading-tight ${
-              darkMode ? "text-white" : "text-gray-900"
+              darkMode ? "text-white" : "text-purple-900"
             }`}>
               Track Your Cycle with {" "}
               <span className={`bg-gradient-to-r ${
@@ -159,12 +157,12 @@ export default function LandingPage() {
             </h1>
             
             <p className={`text-xl md:text-2xl mb-10 leading-relaxed ${
-              darkMode ? "text-white/80" : "text-purple-600"
+              darkMode ? "text-white/80" : "text-purple-800"
             }`}>
               Take control of your menstrual health with our beautiful, intuitive tracker. Understanding your cycle empowers you to plan better, feel better, and live better.
             </p>
             
-            <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+            <div className="flex flex-col sm:flex-row justify-center gap-6 mt-24 mb-16">
               <Button className={`group rounded-full px-8 py-6 text-lg font-semibold ${
                 darkMode 
                   ? "bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-600 hover:to-purple-800 text-white shadow-xl shadow-pink-500/25" 
@@ -188,9 +186,9 @@ export default function LandingPage() {
             </div>
 
             {/* Trust Indicators */}
-            <div className={`flex justify-center items-center space-x-8 ${
+            {/* <div className={`flex justify-center items-center space-x-8 ${
               darkMode ? "text-white/60" : "text-purple-600/60"
-            }`}>
+             }`}>
               <div className="flex items-center space-x-2">
                 <Users className="h-5 w-5" />
                 <span className="text-sm">10M+ Happy Users</span>
@@ -203,13 +201,14 @@ export default function LandingPage() {
                 <Shield className="h-5 w-5" />
                 <span className="text-sm">100% Private</span>
               </div>
-            </div>
+            </div> */}
+ <HeroTiles darkMode={darkMode} />
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className={`py-20 ${
+      <section id="features" className={`py-40 ${
         darkMode ? "bg-black" : "bg-pink-50"
       }`}>
      
@@ -309,8 +308,11 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
+
+      <Testimonials />
 
       {/* CTA Section */}
       <section className={`py-20 ${ 
