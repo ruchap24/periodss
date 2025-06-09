@@ -28,7 +28,7 @@ export default function HeroTiles({ darkMode }: HeroTilesProps) {
     }, []);
 
     return (
-        <div className={`flex justify-center items-center space-x-8 ${
+        <div className={`flex justify-center items-center space-x-8 text-sm ${
             darkMode ? "text-white/75" : "text-purple-800"
         }`}>
             <div className="flex items-center space-x-2">
