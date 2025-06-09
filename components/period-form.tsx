@@ -25,7 +25,7 @@ export default function PeriodForm({ onSubmit, onCancel }: PeriodFormProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md shadow-lg border-pink-200">
+      <Card className="max-w-md shadow-lg border-pink-200 item-center">
         <CardHeader className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-t-lg relative">
           <Button
             variant="ghost"
