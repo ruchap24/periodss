@@ -17,6 +17,7 @@ export default function CycleStatus({ cycleData, petName }: CycleStatusProps) {
       </div>
     )
   }
+  // assdflkjhassdf;lkjhasdfljkjjhasddflkjhasdflkjhaljsdh
 
   const today = new Date()
   let currentDay = 0
