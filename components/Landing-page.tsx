@@ -52,10 +52,12 @@ export default function LandingPage() {
 
 
   return (
-    <div className={`min-h-screen w-full relative ${darkMode
-      ? "bg-[#020617]"
-      : "bg-gradient-to-b from-pink-100 to-purple-50"
-      } transition-all duration-500`}>
+     <div className="min-h-screen w-full overflow-x-hidden">
+    <div className={`relative transition-colors duration-300 ${
+      darkMode
+        ? "bg-[#020617]"
+        : "bg-gradient-to-b from-pink-100 to-purple-50"
+    }`}>
       {/* Dark Radial Glow Background - Only show in dark mode */}
       {darkMode && (
         <div
@@ -165,7 +167,7 @@ export default function LandingPage() {
 
               </h1>
 
-              <p className={`text-xl md:text-2xl mb-10 leading-relaxed ${darkMode ? "text-white/80" : "text-purple-800"
+              <p className={`text-sm md:text-xl mb-10 leading-relaxed ${darkMode ? "text-white/80" : "text-purple-800"
                 }`}>
                 Take control of your menstrual health with our beautiful, intuitive tracker. Understanding your cycle empowers you to plan better, feel better, and live better.
               </p>
@@ -354,6 +356,7 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+    </div>
     </div>
   )
 }
